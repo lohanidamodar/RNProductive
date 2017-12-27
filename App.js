@@ -1,38 +1,43 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * React Native Basics Part 2 (Buttons, TextInput and State)
+ * https://github.com/lohanitech/RNProductive
+ * Author: Damodar Lohani
  * @flow
  */
 
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
+  TextInput,
   Text,
-  View
+  View,
+  ScrollView,
+  Button,
+  Image,
+  StyleSheet,
+  Platform
 } from 'react-native';
+import logo from './logo.png';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 export default class App extends Component<{}> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={[styles.text, styles.title]}>React Native Productive</Text>
+        <Image style={styles.image} source={logo} />
+        <View style={styles.deciderContainer}>
+          <Text>What to do next?</Text>
+          {/* TODO: show decided activity */}
+          <Button title="Decide" />
+        </View>
+        <View style={styles.addActivityContainer}>
+          <TextInput
+            placeholder="add new activity"
+            style={styles.textInput}
+          />
+          <Button title="Add Activity" />
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -40,18 +45,34 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#ffffff',
+    padding: 20,
+    justifyContent: 'space-between'
+  },
+  deciderContainer: {
+    flex: 3,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
+  addActivityContainer: {
+    flex: 2,
+  },
+  image: {
+    alignSelf: 'center'
+  },
+  textInput: {
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#eeeeee'
+      }
+    })
+  },
+  title: {
     textAlign: 'center',
-    margin: 10,
+    fontSize: 24,
+    fontWeight: '900'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  text: {
+    color: '#087f23'
+  }
 });
