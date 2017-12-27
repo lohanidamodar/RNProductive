@@ -24,11 +24,13 @@ export default class App extends Component<{}> {
     super(props)
     this.state = {
       activities: ["Code", "Drink Water", "Eat", "Nap"],
-      decidedActivity: 0
+      decidedActivity: 0,
+      addActivityText: ''
     }
   }
 
   componentWillMount() {
+    this.decide()
   }
 
   decide = () => {
@@ -36,6 +38,15 @@ export default class App extends Component<{}> {
     this.setState({
       decidedActivity: random
     })
+  }
+
+  handleAddActivity = () => {
+    if(this.state.addActivityText !== ''){
+      this.setState((previousState)=> ({
+        activities: previousState.activities.concat([previousState.addActivityText]),
+        addActivityText: ''
+      }))
+    }
   }
 
   render() {
@@ -55,8 +66,10 @@ export default class App extends Component<{}> {
           <TextInput
             placeholder="add new activity"
             style={styles.textInput}
+            onChangeText={(text)=>this.setState({addActivityText: text})}
+            value={this.state.addActivityText}
           />
-          <Button title="Add Activity" />
+          <Button title="Add Activity" onPress={this.handleAddActivity} />
         </View>
       </ScrollView>
     );
