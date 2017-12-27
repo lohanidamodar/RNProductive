@@ -20,15 +20,36 @@ import logo from './logo.png';
 
 
 export default class App extends Component<{}> {
+  constructor(props){
+    super(props)
+    this.state = {
+      activities: ["Code", "Drink Water", "Eat", "Nap"],
+      decidedActivity: 0
+    }
+  }
+
+  componentWillMount() {
+  }
+
+  decide = () => {
+    let random = Math.floor(Math.random() * this.state.activities.length)
+    this.setState({
+      decidedActivity: random
+    })
+  }
+
   render() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={[styles.text, styles.title]}>React Native Productive</Text>
         <Image style={styles.image} source={logo} />
         <View style={styles.deciderContainer}>
-          <Text>What to do next?</Text>
-          {/* TODO: show decided activity */}
-          <Button title="Decide" />
+          <Text style={{fontSize: 18, color: '#333'}}>What to do next?</Text>
+          <Text style={styles.decidedText}>{this.state.activities[this.state.decidedActivity]}</Text>
+          <Button
+            title="Decide"
+            onPress={this.decide}
+          />
         </View>
         <View style={styles.addActivityContainer}>
           <TextInput
@@ -74,5 +95,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#087f23'
+  },
+  decidedText: {
+    color: '#008080',
+    fontSize: 28,
+    padding: 10
   }
 });
